@@ -1,0 +1,29 @@
+version: 2
+
+sources: 
+  - name: IMSS_LANDING
+    database: IMSS_ORDINARIO
+    schema: LANDING_DEV
+    tables:
+      - name: IMSS_ALTAS_LANDING
+        columns: 
+          - name: NOALTA
+            tests: 
+              - unique
+              - not_null
+
+      - name: IMSS_INVOCES_LANDING
+        columns: 
+          - name: ALTA
+            tests: 
+              - relationships: 
+                  arguments: 
+                    to: source('IMSS_LANDING', 'IMSS_ALTAS_LANDING')
+                    field: NOALTA
+      - name: IMSS_ORDERS_LANDING
+        columns: 
+          - name: CONTRATO
+            tests: 
+              - not_null
+  
+            
