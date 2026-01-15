@@ -1,0 +1,23 @@
+version: 2
+
+models:
+  - name: imss_integration
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments: # Add this line
+            combination_of_columns:
+              - NOALTA
+              - NOORDEN
+          config:
+            severity: warn
+
+  - name: imss_invoices
+    description: "Staging model that deduplicates invoices by UUID."
+    columns:
+      - name: uuid
+        description: "The primary key of the invoice."
+        tests:
+          - unique:
+              config:
+                severity: warn
+          - not_null

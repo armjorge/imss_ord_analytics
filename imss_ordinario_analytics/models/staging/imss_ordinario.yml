@@ -6,12 +6,17 @@ sources:
     schema: LANDING_DEV
     tables:
       - name: IMSS_ALTAS_LANDING
+        tests:
+          - dbt_utils.unique_combination_of_columns:
+              arguments:
+                combination_of_columns:
+                  - NOALTA
+                  - NOORDEN
+                  - FILE_TIMESTAMP
         columns: 
           - name: NOALTA
             tests: 
-              - unique
               - not_null
-
       - name: IMSS_INVOCES_LANDING
         columns: 
           - name: ALTA
@@ -24,6 +29,10 @@ sources:
         columns: 
           - name: CONTRATO
             tests: 
+              - not_null  
+      - name: IMSS_PREI_LANDING
+        columns: 
+          - name: FOLIO_FISCAL
+            tests: 
               - not_null
-  
             
